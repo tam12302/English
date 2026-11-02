@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>跨境电商小白7天入门词汇 · 随身发音点读机</title>
+  <style>
+    :root {
+      --primary: #1E3A8A;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --accent: #2563EB;
+      --border: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      padding-bottom: 50px;
+    }
+
+    /* 顶部标题区 */
+    header {
+      background: linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%);
+      color: white;
+      padding: 24px 16px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      font-size: 13px;
+      color: #DBEAFE;
+      line-height: 1.4;
+    }
+
+    /* 快捷功能条 */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 650px;
+      margin: 12px auto 0;
+      padding: 0 4px;
+    }
+
+    .play-all-btn {
+      background: #3B82F6;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .play-all-btn:active {
+      transform: scale(0.96);
+      background: #2563EB;
+    }
+
+    .speed-selector {
+      font-size: 13px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .speed-selector select {
+      background: #FFFFFF;
+      color: #0F172A;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .speed-selector select option {
+      background: #FFFFFF;
+      color: #0F172A;
+      font-size: 13px;
+    }
+
+    /* 7天导航切换药丸 */
+    .days-nav-wrapper {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 88px;
+      z-index: 99;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px 12px;
+      scrollbar-width: none;
+    }
+
+    .days-nav-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .days-nav {
+      display: inline-flex;
+      gap: 8px;
+      max-width: 650px;
+    }
+
+    .day-pill {
+      background: #F1F5F9;
+      color: #475569;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .day-pill.active {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+
+    /* 主体容器 */
+    .container {
+      max-width: 650px;
+      margin: 14px auto 0;
+      padding: 0 12px;
+    }
+
+    /* 每日信息卡 */
+    .day-banner {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .day-banner-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1E3A8A;
+      margin-bottom: 3px;
+    }
+
+    .day-banner-desc {
+      font-size: 12px;
+      color: #3B82F6;
+    }
+
+    .day-badge {
+      background: #DBEAFE;
+      color: #1E40AF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    /* 单词列表 */
+    .word-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .word-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .word-card:active {
+      background: #F8FAFC;
+    }
+
+    .word-card.speaking {
+      border-color: #3B82F6;
+      background: #EFF6FF;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+    /* 单词头部行 */
+    .word-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .word-left {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .word-index {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94A3B8;
+      width: 22px;
+    }
+
+    .word-text {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .word-cn {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      background: #EFF6FF;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .speak-btn {
+      background: #F1F5F9;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #475569;
+      font-size: 16px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .speak-btn:hover {
+      background: #E2E8F0;
+      color: var(--accent);
+    }
+
+    .word-card.speaking .speak-btn {
+      background: #2563EB;
+      color: white;
+      transform: scale(1.1);
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.15); }
+    }
+
+    /* 例句区域 */
+    .sentence-row {
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      border: 1px dashed #CBD5E1;
+      transition: background 0.15s;
+    }
+
+    .sentence-row:hover {
+      background: #F1F5F9;
+    }
+
+    .sentence-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sentence-en {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1E293B;
+    }
+
+    .sentence-cn {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .sentence-speak-icon {
+      font-size: 13px;
+      color: #94A3B8;
+      padding: 4px;
+    }
+
+    /* 底部提示卡 */
+    .bottom-tips {
+      margin-top: 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 12px;
+      color: #64748B;
+      line-height: 1.6;
+    }
+
+    .bottom-tips b {
+      color: #1E293B;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>跨境电商 7 天极简词汇 · 随身发音点读机</h1>
+    <p>点哪个单词读哪个 · 离线/内置双引擎 · 大陆网络 100% 畅通可用</p>
+    <div class="toolbar">
+      <button class="play-all-btn" id="playAllBtn" onclick="togglePlayAll()">
+        <span>▶ 顺序朗读全部</span>
+      </button>
+      <div class="speed-selector">
+        <label for="speedSelect">语速：</label>
+        <select id="speedSelect">
+          <option value="0.8">慢速 (新手推荐)</option>
+          <option value="1.0" selected>正常语速</option>
+          <option value="1.2">稍快</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- 7天导航切换 -->
+  <div class="days-nav-wrapper">
+    <div class="days-nav" id="daysNav"></div>
+  </div>
+
+  <!-- 内容展示容器 -->
+  <div class="container">
+    <div class="day-banner" id="dayBanner"></div>
+    <div class="word-list" id="wordList"></div>
+
+    <div class="bottom-tips">
+      💡 <b>发音使用小技巧：</b><br/>
+      1. <b>点单词行：</b>立即发该单词纯正美音。<br/>
+      2. <b>点例句虚线框：</b>慢速朗读整句英文例句。<br/>
+      3. <b>大陆网络专供：</b>采用浏览器原生长效发音引擎 + 备用高保真发音双引擎，手机/电脑不翻墙直接畅听！
+    </div>
+  </div>
+
+  <script>
+    // 7天完整数据
+    const vocabularyData = [
+      {
+        day: "Day 1",
+        name: "Day 1 买卖篇",
+        theme: "【买卖篇】最简单的买与卖",
+        desc: "小学初中简单单词 · 造句仅3-5个词 · 读两遍就会",
+        color: "#1E3A8A",
+        words: [
+          { w: "Buy", cn: "买", en_s: "Buy it now.", cn_s: "现在买它。" },
+          { w: "Sell", cn: "卖", en_s: "I sell shoes.", cn_s: "我卖鞋子。" },
+          { w: "Buyer", cn: "买家", en_s: "The buyer paid.", cn_s: "买家付钱了。" },
+          { w: "Seller", cn: "卖家", en_s: "I am a seller.", cn_s: "我是一个卖家。" },
+          { w: "Store", cn: "店铺", en_s: "This is my store.", cn_s: "这是我的店铺。" },
+          { w: "Product", cn: "商品", en_s: "I like this product.", cn_s: "我喜欢这个产品。" },
+          { w: "Item", cn: "单品", en_s: "Add 1 item.", cn_s: "添加 1 件商品。" },
+          { w: "Order", cn: "订单", en_s: "I have a new order.", cn_s: "我有一个新订单。" },
+          { w: "Price", cn: "价格", en_s: "The price is good.", cn_s: "这个价格很好。" },
+          { w: "Cost", cn: "成本", en_s: "The cost is low.", cn_s: "成本很低。" },
+          { w: "Pay", cn: "付款", en_s: "Please pay now.", cn_s: "请现在付款。" },
+          { w: "Cart", cn: "购物车", en_s: "Add to cart.", cn_s: "加入购物车。" },
+          { w: "Account", cn: "账号", en_s: "This is my account.", cn_s: "这是我的账号。" },
+          { w: "Login", cn: "登录", en_s: "Login to my store.", cn_s: "登录我的店铺。" },
+          { w: "Home", cn: "首页", en_s: "Go to home page.", cn_s: "去首页。" },
+          { w: "Search", cn: "搜索", en_s: "Search for toys.", cn_s: "搜索玩具。" },
+          { w: "Brand", cn: "品牌", en_s: "This is my brand.", cn_s: "这是我的品牌。" },
+          { w: "Hot", cn: "热销", en_s: "This item is hot.", cn_s: "这件商品很热销。" },
+          { w: "New", cn: "新品", en_s: "This is a new item.", cn_s: "这是一件新商品。" },
+          { w: "Good", cn: "好的", en_s: "Very good shop.", cn_s: "非常好的店。" }
+        ]
+      },
+      {
+        day: "Day 2",
+        name: "Day 2 商品篇",
+        theme: "【商品篇】颜色、大小与包装",
+        desc: "描述商品长什么样 · 超短造句 · 看完直接套用",
+        color: "#0D9488",
+        words: [
+          { w: "Title", cn: "标题", en_s: "Read the title.", cn_s: "看这个标题。" },
+          { w: "Image", cn: "图片", en_s: "See this image.", cn_s: "看这张图片。" },
+          { w: "Color", cn: "颜色", en_s: "What color do you like?", cn_s: "你喜欢什么颜色？" },
+          { w: "Red", cn: "红色", en_s: "I want the red one.", cn_s: "我想要红色的那个。" },
+          { w: "Black", cn: "黑色", en_s: "We have black shoes.", cn_s: "我们有黑色鞋子。" },
+          { w: "White", cn: "白色", en_s: "The box is white.", cn_s: "盒子是白色的。" },
+          { w: "Size", cn: "尺码", en_s: "Choose your size.", cn_s: "选你的尺码。" },
+          { w: "Big", cn: "大", en_s: "This box is big.", cn_s: "这个箱子很大。" },
+          { w: "Small", cn: "小", en_s: "It is very small.", cn_s: "它非常小。" },
+          { w: "Weight", cn: "重量", en_s: "Check the weight.", cn_s: "查一下重量。" },
+          { w: "Pack", cn: "一盒/套", en_s: "Buy a 3-pack.", cn_s: "买一盒 3 件装。" },
+          { w: "Box", cn: "盒子", en_s: "Open the box.", cn_s: "打开盒子。" },
+          { w: "Bag", cn: "袋子", en_s: "Put it in the bag.", cn_s: "放进袋子里。" },
+          { w: "Quality", cn: "品质", en_s: "The quality is high.", cn_s: "质量很好。" },
+          { w: "Sale", cn: "特价", en_s: "On sale today.", cn_s: "今天特价。" },
+          { w: "Free", cn: "免费", en_s: "It is free.", cn_s: "它是免费的。" },
+          { w: "Name", cn: "名字", en_s: "Product name is pen.", cn_s: "商品名字是钢笔。" },
+          { w: "Pcs", cn: "件数", en_s: "We have 10 pcs.", cn_s: "我们有 10 件。" },
+          { w: "Star", cn: "星级", en_s: "It has 5 stars.", cn_s: "它有 5 颗星好评。" },
+          { w: "Review", cn: "评价", en_s: "Good review for you.", cn_s: "给你一个好评价。" }
+        ]
+      },
+      {
+        day: "Day 3",
+        name: "Day 3 物流篇",
+        theme: "【物流篇】发货、查件与送达",
+        desc: "货物怎么寄、什么时候送到 · 新手发货必备大白话",
+        color: "#EA580C",
+        words: [
+          { w: "Ship", cn: "发货", en_s: "We ship today.", cn_s: "我们今天发货。" },
+          { w: "Send", cn: "寄出", en_s: "I send the parcel.", cn_s: "我寄出包裹。" },
+          { w: "Fast", cn: "快", en_s: "Shipping is very fast.", cn_s: "发货非常快。" },
+          { w: "Slow", cn: "慢", en_s: "The sea ship is slow.", cn_s: "海运比较慢。" },
+          { w: "Stock", cn: "库存", en_s: "We have stock.", cn_s: "我们有库存。" },
+          { w: "In stock", cn: "有货", en_s: "The shoe is in stock.", cn_s: "鞋子有现货。" },
+          { w: "Out of stock", cn: "卖光了", en_s: "It is out of stock.", cn_s: "它卖光缺货了。" },
+          { w: "Package", cn: "包裹", en_s: "Track my package.", cn_s: "查我的包裹。" },
+          { w: "Address", cn: "地址", en_s: "Is this your address?", cn_s: "这是你的地址吗？" },
+          { w: "City", cn: "城市", en_s: "Send to New York city.", cn_s: "寄到纽约市。" },
+          { w: "Country", cn: "国家", en_s: "Which country are you in?", cn_s: "你在哪个国家？" },
+          { w: "Air", cn: "飞机空运", en_s: "Ship it by air.", cn_s: "用飞机空运寄。" },
+          { w: "Sea", cn: "轮船海运", en_s: "Big boxes go by sea.", cn_s: "大箱子走海运。" },
+          { w: "Day", cn: "天数", en_s: "It takes 5 days.", cn_s: "需要 5 天时间。" },
+          { w: "Time", cn: "时间", en_s: "Delivery time is fast.", cn_s: "送达时间很快。" },
+          { w: "Wait", cn: "等等", en_s: "Please wait 2 days.", cn_s: "请等 2 天。" },
+          { w: "Here", cn: "到了", en_s: "Your box is here.", cn_s: "你的包裹到这里了。" },
+          { w: "Delivered", cn: "送到了", en_s: "Package is delivered.", cn_s: "包裹已经送到了。" },
+          { w: "Post", cn: "邮局", en_s: "Go to the post office.", cn_s: "去邮局寄件。" },
+          { w: "Express", cn: "特快专递", en_s: "Use DHL express.", cn_s: "走 DHL 特快专递。" }
+        ]
+      },
+      {
+        day: "Day 4",
+        name: "Day 4 客服篇",
+        theme: "【客服篇】跟买家发消息交流",
+        desc: "超简单礼貌问候与售后解决 · 几个词搞定老外买家",
+        color: "#059669",
+        words: [
+          { w: "Hello", cn: "你好", en_s: "Hello my friend.", cn_s: "你好我的朋友。" },
+          { w: "Help", cn: "帮帮", en_s: "Can I help you?", cn_s: "我能帮你吗？" },
+          { w: "Please", cn: "请", en_s: "Please wait a moment.", cn_s: "请稍等一下。" },
+          { w: "Thanks", cn: "谢谢", en_s: "Thanks for your order.", cn_s: "谢谢你的订单。" },
+          { w: "Sorry", cn: "对不起", en_s: "I am very sorry.", cn_s: "我感到非常抱歉。" },
+          { w: "Yes", cn: "好的/是的", en_s: "Yes, we have it.", cn_s: "是的，我们有货。" },
+          { w: "No", cn: "没有/不行", en_s: "No problem at all.", cn_s: "完全没问题。" },
+          { w: "OK", cn: "可以/好的", en_s: "Everything is OK.", cn_s: "一切都挺好。" },
+          { w: "Question", cn: "问题", en_s: "Do you have a question?", cn_s: "你有疑问吗？" },
+          { w: "Answer", cn: "回答", en_s: "Here is my answer.", cn_s: "这是我的回答。" },
+          { w: "Message", cn: "发消息", en_s: "Send me a message.", cn_s: "给我发一条消息。" },
+          { w: "Right", cn: "对的", en_s: "This is the right size.", cn_s: "这是对的尺码。" },
+          { w: "Wrong", cn: "发错了", en_s: "Sent the wrong color.", cn_s: "发错了颜色。" },
+          { w: "Bad", cn: "坏了", en_s: "The box is bad.", cn_s: "盒子坏了。" },
+          { w: "Broken", cn: "摔碎了", en_s: "The cup is broken.", cn_s: "杯子摔碎破了。" },
+          { w: "Lost", cn: "丢件了", en_s: "The package is lost.", cn_s: "包裹丢了。" },
+          { w: "Return", cn: "退货", en_s: "Can I return it?", cn_s: "我可以退货吗？" },
+          { w: "Refund", cn: "退钱", en_s: "I will refund you.", cn_s: "我会把钱退给你。" },
+          { w: "Friend", cn: "朋友", en_s: "Dear friend, thank you.", cn_s: "亲爱的朋友，谢谢。" },
+          { w: "Happy", cn: "开心", en_s: "We hope you are happy.", cn_s: "希望你买得开心。" }
+        ]
+      },
+      {
+        day: "Day 5",
+        name: "Day 5 后台操作",
+        theme: "【电脑后台篇】看懂按键与菜单",
+        desc: "每天用鼠标在电脑上点击的超短指令 · 一看就懂",
+        color: "#7C3AED",
+        words: [
+          { w: "Add", cn: "加/新建", en_s: "Add a product.", cn_s: "加一件新商品。" },
+          { w: "Edit", cn: "改/修改", en_s: "Edit the price.", cn_s: "改一下价格。" },
+          { w: "Save", cn: "存/保存", en_s: "Click to save.", cn_s: "点击保存。" },
+          { w: "Delete", cn: "删掉", en_s: "Delete this item.", cn_s: "删掉这件商品。" },
+          { w: "Click", cn: "点击", en_s: "Click the button.", cn_s: "点击这个按钮。" },
+          { w: "Check", cn: "打勾勾选", en_s: "Check the box.", cn_s: "在方框里打勾。" },
+          { w: "View", cn: "看看", en_s: "View your store.", cn_s: "看看你的店铺。" },
+          { w: "Open", cn: "开店", en_s: "Open my shop.", cn_s: "开通网店。" },
+          { w: "Close", cn: "打烊", en_s: "Close the page.", cn_s: "关掉这个页面。" },
+          { w: "File", cn: "文件", en_s: "Download this file.", cn_s: "下载这个文件。" },
+          { w: "Print", cn: "打印", en_s: "Print the label.", cn_s: "打印快递面单。" },
+          { w: "Upload", cn: "传上去", en_s: "Upload photo.", cn_s: "把照片传上去。" },
+          { w: "Down", cn: "下载", en_s: "Download the sheet.", cn_s: "把表格下载下来。" },
+          { w: "Done", cn: "做好了", en_s: "All work is done.", cn_s: "全部都做好了。" },
+          { w: "Back", cn: "返回", en_s: "Go back to home.", cn_s: "返回到首页。" },
+          { w: "Next", cn: "下一个", en_s: "Click next step.", cn_s: "点击下一步。" },
+          { w: "Find", cn: "找找", en_s: "Find my order.", cn_s: "找找我的订单。" },
+          { w: "List", cn: "列表", en_s: "Order list is here.", cn_s: "订单列表在这里。" },
+          { w: "Text", cn: "文字", en_s: "Type your text.", cn_s: "输入你的文字。" },
+          { w: "Setting", cn: "设置", en_s: "Change store settings.", cn_s: "修改店铺设置。" }
+        ]
+      },
+      {
+        day: "Day 6",
+        name: "Day 6 财务算账",
+        theme: "【算账钱数篇】看懂赚钱和花钱",
+        desc: "最关心的钱、数字、收款与利润 · 算账必备",
+        color: "#0284C7",
+        words: [
+          { w: "Money", cn: "钱", en_s: "Make good money.", cn_s: "赚好钱。" },
+          { w: "Dollar", cn: "美元", en_s: "One dollar.", cn_s: "一美元。" },
+          { w: "Pay", cn: "付款", en_s: "Get paid today.", cn_s: "今天收到了货款。" },
+          { w: "Total", cn: "总共", en_s: "Total is twenty dollars.", cn_s: "总共是 20 美元。" },
+          { w: "Sale", cn: "卖出", en_s: "We made 10 sales.", cn_s: "我们卖出了 10 单。" },
+          { w: "More", cn: "更多", en_s: "We need more orders.", cn_s: "我们需要更多订单。" },
+          { w: "Less", cn: "更少", en_s: "Spend less money.", cn_s: "花更少的钱。" },
+          { w: "High", cn: "高", en_s: "Sales are very high.", cn_s: "销量很高。" },
+          { w: "Low", cn: "低", en_s: "Price is very low.", cn_s: "价格很低。" },
+          { w: "Fee", cn: "费用", en_s: "Pay a small fee.", cn_s: "付一笔小费用。" },
+          { w: "Bank", cn: "银行", en_s: "Send to my bank.", cn_s: "把钱打到我的银行卡。" },
+          { w: "Card", cn: "卡", en_s: "Pay by card.", cn_s: "用银行卡付。" },
+          { w: "Tax", cn: "税", en_s: "Sales tax is paid.", cn_s: "税已经付过了。" },
+          { w: "Day", cn: "今天/日", en_s: "Good day for sales.", cn_s: "今天是个爆单好日子。" },
+          { w: "Month", cn: "月份", en_s: "Sales this month.", cn_s: "这个月的销量。" },
+          { w: "Profit", cn: "净利润", en_s: "My profit is ten dollars.", cn_s: "我的纯利润是 10 美元。" },
+          { w: "Loss", cn: "亏钱", en_s: "No money loss.", cn_s: "没有亏钱。" },
+          { w: "Number", cn: "数字", en_s: "Check the number.", cn_s: "看一下这个数字。" },
+          { w: "Bill", cn: "账单", en_s: "See your bill.", cn_s: "看看你的账单。" },
+          { w: "Win", cn: "赢了", en_s: "Win more orders.", cn_s: "赢得更多订单。" }
+        ]
+      },
+      {
+        day: "Day 7",
+        name: "Day 7 常用简写",
+        theme: "【最常用短简写篇】7个极简日常行话",
+        desc: "最常见的电商行话缩写 · 还原为大白话短句轻松记",
+        color: "#B45309",
+        words: [
+          { w: "SKU", cn: "单品代码", en_s: "This shoe is one S K U.", cn_s: "这双鞋是一个单品代码。" },
+          { w: "Ad", cn: "广告", en_s: "Run a simple ad.", cn_s: "打个简单的小广告。" },
+          { w: "Click", cn: "点击", en_s: "Click to see details.", cn_s: "点击查看详情。" },
+          { w: "B2C", cn: "卖给个人", en_s: "Sell to people is B 2 C.", cn_s: "卖货给普通人就是 B2C。" },
+          { w: "FBA", cn: "官方代发", en_s: "Ship from F B A.", cn_s: "从官方仓库代发。" },
+          { w: "FBM", cn: "自己发货", en_s: "I ship by F B M.", cn_s: "我自己打包发货。" },
+          { w: "Safe", cn: "安全", en_s: "Account is safe.", cn_s: "账号很安全。" },
+          { w: "Rule", cn: "规矩", en_s: "Follow the shop rule.", cn_s: "遵守店铺规矩。" },
+          { w: "Warn", cn: "提醒警告", en_s: "System warns us.", cn_s: "系统提醒警告我们。" },
+          { w: "Block", cn: "封禁", en_s: "Do not get blocked.", cn_s: "千万别被封了。" },
+          { w: "Goal", cn: "目标", en_s: "Reach my goal.", cn_s: "达成我的目标。" },
+          { w: "Top", cn: "前几名", en_s: "We are on top.", cn_s: "我们排在前几名。" },
+          { w: "Best", cn: "最好", en_s: "The best seller.", cn_s: "卖得最好的爆款。" },
+          { w: "Help", cn: "求助", en_s: "Get help online.", cn_s: "在线获取帮助。" },
+          { w: "Live", cn: "在售营业", en_s: "The store is live.", cn_s: "店铺已经上线营业了。" },
+          { w: "Easy", cn: "简单容易", en_s: "Selling is easy.", cn_s: "卖货其实很容易。" },
+          { w: "Work", cn: "管用/起效", en_s: "The ad really works.", cn_s: "这个广告真的很管用。" },
+          { w: "Test", cn: "测款", en_s: "Test a new product.", cn_s: "测试一款新商品。" },
+          { w: "Ship", cn: "寄包裹", en_s: "Time to ship out.", cn_s: "该把包裹寄出去了。" },
+          { w: "Win", cn: "搞定/成功", en_s: "You can win!", cn_s: "你一定能搞定！" }
+        ]
+      }
+    ];
+
+    let currentDayIndex = 0;
+    let isPlayingAll = false;
+    let playAllTimeout = null;
+    let audioPlayer = new Audio();
+
+    // 双发音引擎：支持中国大陆 100% 畅通播放
+    function speakText(text, callback, customRate) {
+      const speed = customRate || parseFloat(document.getElementById('speedSelect').value) || 1.0;
+
+      // 方案 A: 浏览器原生原生 SpeechSynthesis（完全本地离线，无需外网，零延迟）
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = speed;
+        utterance.pitch = 1.0;
+
+        // 尝试选用美音
+        const voices = window.speechSynthesis.getVoices();
+        const usVoice = voices.find(v => v.lang.includes('en-US') || v.lang.includes('en'));
+        if (usVoice) utterance.voice = usVoice;
+
+        utterance.onend = () => { if (callback) callback(); };
+        utterance.onerror = () => {
+          // 若原生失败，降级到有道高保真发音
+          playBackupAudio(text, callback);
+        };
+        window.speechSynthesis.speak(utterance);
+      } else {
+        // 方案 B: 降级到国内有道纯正真人美音
+        playBackupAudio(text, callback);
+      }
+    }
+
+    function playBackupAudio(text, callback) {
+      // 有道美音在线接口（中国大陆 CDN 直连）
+      const cleanWord = text.trim().split(' ')[0].replace(/[^a-zA-Z]/g, '');
+      const audioUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(cleanWord)}&type=2`;
+      audioPlayer.src = audioUrl;
+      audioPlayer.onended = () => { if (callback) callback(); };
+      audioPlayer.onerror = () => { if (callback) callback(); };
+      audioPlayer.play().catch(e => {
+        if (callback) callback();
+      });
+    }
+
+    // 渲染导航
+    function renderNav() {
+      const navContainer = document.getElementById('daysNav');
+      navContainer.innerHTML = '';
+      vocabularyData.forEach((day, index) => {
+        const btn = document.createElement('button');
+        btn.className = `day-pill ${index === currentDayIndex ? 'active' : ''}`;
+        btn.innerText = day.name;
+        btn.onclick = () => selectDay(index);
+        navContainer.appendChild(btn);
+      });
+    }
+
+    // 切换天数
+    function selectDay(index) {
+      stopPlayAll();
+      currentDayIndex = index;
+      renderNav();
+      renderContent();
+    }
+
+    // 渲染当天词汇
+    function renderContent() {
+      const dayData = vocabularyData[currentDayIndex];
+      const banner = document.getElementById('dayBanner');
+      banner.style.borderColor = dayData.color + '40';
+      banner.style.backgroundColor = dayData.color + '10';
+
+      banner.innerHTML = `
+        <div>
+          <div class="day-banner-title" style="color: ${dayData.color}">${dayData.theme}</div>
+          <div class="day-banner-desc" style="color: ${dayData.color}">${dayData.desc}</div>
+        </div>
+        <div class="day-badge" style="background: ${dayData.color}20; color: ${dayData.color}">
+          ${currentDayIndex + 1} / 7
+        </div>
+      `;
+
+      const list = document.getElementById('wordList');
+      list.innerHTML = '';
+
+      dayData.words.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'word-card';
+        card.id = `card-${idx}`;
+
+        card.innerHTML = `
+          <div class="word-row" onclick="playSingleWord(${idx}, '${item.w}')">
+            <div class="word-left">
+              <span class="word-index">${idx + 1}</span>
+              <span class="word-text">${item.w}</span>
+              <span class="word-cn" style="color: ${dayData.color}; background: ${dayData.color}15">【${item.cn}】</span>
+            </div>
+            <button class="speak-btn" title="点击朗读单词">
+              🔊
+            </button>
+          </div>
+          <div class="sentence-row" onclick="playSingleSentence(${idx}, '${item.en_s}')">
+            <div class="sentence-left">
+              <span class="sentence-en">👉 ${item.en_s}</span>
+              <span class="sentence-cn">${item.cn_s}</span>
+            </div>
+            <span class="sentence-speak-icon" title="读例句">🔊 读句子</span>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    // 点读单个单词
+    function playSingleWord(idx, word) {
+      stopPlayAll();
+      highlightCard(idx);
+      speakText(word, () => {
+        unhighlightCard(idx);
+      });
+    }
+
+    // 点读单条例句
+    function playSingleSentence(idx, sentence) {
+      stopPlayAll();
+      highlightCard(idx);
+      // 句子稍微放慢一点点，便于新手听清连读
+      const userSpeed = parseFloat(document.getElementById('speedSelect').value) || 1.0;
+      speakText(sentence, () => {
+        unhighlightCard(idx);
+      }, userSpeed * 0.9);
+    }
+
+    function highlightCard(idx) {
+      document.querySelectorAll('.word-card').forEach(c => c.classList.remove('speaking'));
+      const target = document.getElementById(`card-${idx}`);
+      if (target) {
+        target.classList.add('speaking');
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function unhighlightCard(idx) {
+      const target = document.getElementById(`card-${idx}`);
+      if (target) target.classList.remove('speaking');
+    }
+
+    // 顺序连续朗读整页
+    function togglePlayAll() {
+      if (isPlayingAll) {
+        stopPlayAll();
+      } else {
+        startPlayAll();
+      }
+    }
+
+    function startPlayAll() {
+      isPlayingAll = true;
+      const btn = document.getElementById('playAllBtn');
+      btn.innerHTML = '<span>⏹ 停止朗读</span>';
+      btn.style.background = '#EF4444';
+      playNextInSequence(0);
+    }
+
+    function stopPlayAll() {
+      isPlayingAll = false;
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      audioPlayer.pause();
+      clearTimeout(playAllTimeout);
+      const btn = document.getElementById('playAllBtn');
+      if (btn) {
+        btn.innerHTML = '<span>▶ 顺序朗读全部</span>';
+        btn.style.background = '#3B82F6';
+      }
+      document.querySelectorAll('.word-card').forEach(c => c.classList.remove('speaking'));
+    }
+
+    function playNextInSequence(idx) {
+      const dayData = vocabularyData[currentDayIndex];
+      if (!isPlayingAll || idx >= dayData.words.length) {
+        stopPlayAll();
+        return;
+      }
+
+      highlightCard(idx);
+      const item = dayData.words[idx];
+
+      // 流程：先读单词 ➔ 稍作停顿 ➔ 读造句 ➔ 停顿 1 秒 ➔ 下一个
+      speakText(item.w, () => {
+        if (!isPlayingAll) return;
+        playAllTimeout = setTimeout(() => {
+          if (!isPlayingAll) return;
+          speakText(item.en_s, () => {
+            if (!isPlayingAll) return;
+            unhighlightCard(idx);
+            playAllTimeout = setTimeout(() => {
+              playNextInSequence(idx + 1);
+            }, 800);
+          });
+        }, 350);
+      });
+    }
+
+    // 初始化运行
+    renderNav();
+    renderContent();
+  </script>
+</body>
+</html>
